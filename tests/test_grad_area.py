@@ -1,17 +1,14 @@
-import os.path
 import unittest
 
 import numpy as np
-import scipy as sp
-
-import scipy.io as sio
 
 from bloch.min_time_gradient import minimum_time_gradient
 
-from BlochTest import get_data_with_key
+from test_bloch import get_data_with_key
 
 TEST_DIR = "test_data"
 TEST_FILE = "gradient"
+
 
 class GradientAreaTest(unittest.TestCase):
     """
@@ -22,7 +19,7 @@ class GradientAreaTest(unittest.TestCase):
         """
         Tests waveforms against matlab code results.
         """
-        expected_gy = get_data_with_key(TEST_DIR, TEST_FILE, "gy") 
+        expected_gy = get_data_with_key(TEST_DIR, TEST_FILE, "gy")
 
         Np = 32
         fov = 7
@@ -35,6 +32,7 @@ class GradientAreaTest(unittest.TestCase):
         area = kmax / gamma
         gy = minimum_time_gradient(area, gmax, smax, dt)
         self.assertTrue(np.allclose(expected_gy, gy))
+
 
 if __name__ == "__main__":
     unittest.main()

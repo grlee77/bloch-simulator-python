@@ -1,19 +1,36 @@
 import os.path
-import unittest 
+import unittest
 
 import numpy as np
-import scipy.io as sio
 
 from bloch.bloch import bloch
 
-TEST_DIR = "test_data"
+TEST_DIR = os.path.join(os.path.dirname(__file__), "data")
+
+
+def get_data(directory, file_name):
+    """
+    Grabs data structure from matlab data file.
+    """
+    file_name = "{0}.npz".format(file_name)
+    data = np.load(os.path.join(directory, file_name))
+    return data
+
+
+def get_data_with_key(directory, file_name, key):
+    """
+    Grabs data structure from matlab data file and key.
+    """
+    data = get_data(directory, file_name)[key]
+    return np.transpose(data)
+
 
 class BlochTest(unittest.TestCase):
     """
     Tests basic functionality of Python
-    Bloch simulator. All test results are based 
+    Bloch simulator. All test results are based
     on results of Matlab function. Any errors in that
-    evaluation will be replicated here. 
+    evaluation will be replicated here.
     """
 
     def test_bloch_sim_demo(self):
@@ -40,9 +57,9 @@ class BlochTest(unittest.TestCase):
         mz_0 = 1
 
         mx, my, mz = bloch(b1, g, dt, t1, t2, df, dp, mode, mx_0, mx_0, mx_0)
-        self.assertTrue(np.allclose(mx_demo, mx));
-        self.assertTrue(np.allclose(my_demo, my));
-        self.assertTrue(np.allclose(mz_demo, mz));
+        self.assertTrue(np.allclose(mx_demo, mx))
+        self.assertTrue(np.allclose(my_demo, my))
+        self.assertTrue(np.allclose(mz_demo, mz))
 
     def test_bloch_sim_a(self):
         """
@@ -67,10 +84,10 @@ class BlochTest(unittest.TestCase):
         mz_0 = 1
 
         mx, my, mz = bloch(b1, g, dt, t1, t2, df, dp, mode, mx_0, my_0, mz_0)
-        self.assertTrue(np.allclose(mx_a, mx));
-        self.assertTrue(np.allclose(my_b, my));
-        self.assertTrue(np.allclose(mz_c, mz));
-    
+        self.assertTrue(np.allclose(mx_a, mx))
+        self.assertTrue(np.allclose(my_b, my))
+        self.assertTrue(np.allclose(mz_c, mz))
+
     def test_ssfptransiest(self):
         """
         Runs an SSFP response calculation using bloch.m
@@ -111,20 +128,6 @@ class BlochTest(unittest.TestCase):
         self.assertTrue(np.allclose(expected_my, my))
         self.assertTrue(np.allclose(expected_mz, mz))
 
-def get_data(directory, file_name):
-    """
-    Grabs data structure from matlab data file.
-    """
-    file_name = "{0}.npz".format(file_name)
-    data = np.load(os.path.join(directory, file_name))
-    return data
-
-def get_data_with_key(directory, file_name, key):
-    """
-    Grabs data structure from matlab data file and key.
-    """
-    data = get_data(directory, file_name)[key]
-    return np.transpose(data)
 
 if __name__ == "__main__":
     unittest.main()
