@@ -1,3 +1,4 @@
+import os
 import unittest
 
 import numpy as np
@@ -7,7 +8,7 @@ from bloch.rf_seq import hard_pulses, sinc_pulse
 
 from test_bloch import get_data_with_key
 
-TEST_DIR = "test_data"
+TEST_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 
 class RFSeqTests(unittest.TestCase):

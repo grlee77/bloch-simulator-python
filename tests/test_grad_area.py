@@ -1,3 +1,4 @@
+import os
 import unittest
 
 import numpy as np
@@ -6,7 +7,7 @@ from bloch.min_time_gradient import minimum_time_gradient
 
 from test_bloch import get_data_with_key
 
-TEST_DIR = "test_data"
+TEST_DIR = os.path.join(os.path.dirname(__file__), "data")
 TEST_FILE = "gradient"
 
 
