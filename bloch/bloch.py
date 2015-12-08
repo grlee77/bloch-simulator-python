@@ -25,7 +25,7 @@ def bloch(b1, gr, tp, t1, t2, df, dp, mode, mx=None, my=None, mz=None):
             t1 = T1 relaxation time in seconds.
             t2 = T2 relaxation time in seconds.
             df = (1xN) Array of off-resonance frequencies (Hz)
-            dp = ((1,2,or 3)xP) Array of spatial positions (cm).  
+            dp = ((1,2,or 3)xP) Array of spatial positions (cm).
                     Width should match width of gr.
             mode= Bitmask mode:
                     Bit 0:  0-Simulate from start or M0, 1-Steady State
